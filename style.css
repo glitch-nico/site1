@@ -96,7 +96,7 @@ body {
   top: 0; left: 0;
   width: 100%;
   height: 90%;
-  background-image: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+  background-image: url('IMG_20251105_094648_274.jpg);
   background-size: cover;
   background-position: center;
   z-index: 1;
@@ -164,3 +164,4 @@ nav a.ativo:hover {
   object-fit: cover;
   pointer-events: none; /* Impede clique no vídeo */
 }
+
