@@ -114,7 +114,11 @@ body {
   z-index: 3;
   padding: 2rem;
 }
-
+  img, video {
+    max-width: 100%;
+    margin:0rem 0;
+    display: block;
+  }
 @keyframes zoom {
   0% { transform: scale(1); }
   100% { transform: scale(1.1); }
@@ -159,5 +163,6 @@ nav a.ativo:hover {
   object-fit: cover;
   pointer-events: none; /* Impede clique no vídeo */
 }
+
 
 
