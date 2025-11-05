@@ -36,11 +36,6 @@ body {
     padding: 1rem;
     margin-top: 2rem;
   }
-  img, video {
-    max-width: 100%;
-    margin:0rem 0;
-    display: block;
-  }
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -164,4 +159,5 @@ nav a.ativo:hover {
   object-fit: cover;
   pointer-events: none; /* Impede clique no vídeo */
 }
+
 
