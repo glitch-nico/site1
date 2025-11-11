@@ -23,213 +23,77 @@
   <section class="container">
     <h2>Compra</h2>
     <div class="line">
-      <!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Página de Compras Simples</title>
-  <style>
-    :root{ --bg:#f6f7fb; --card:#ffffff; --accent:#2b6cb0; --muted:#6b7280 }
-    *{box-sizing:border-box}
-    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:var(--bg); color:#111}
-    header{background:linear-gradient(90deg,#ffffff80, #eef2ff); padding:18px 24px; display:flex; align-items:center; justify-content:space-between; gap:12px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:44px;height:44px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
-    main{display:grid;grid-template-columns:1fr 360px;gap:20px;padding:20px;max-width:1100px;margin:20px auto}
-    @media (max-width:880px){main{grid-template-columns:1fr; padding:12px} .cart{order:2}}
-
-    /* Produtos */
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    @media (max-width:880px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:520px){.grid{grid-template-columns:1fr}}
-    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06);display:flex;flex-direction:column}
-    .thumb{height:160px;border-radius:10px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--muted);margin-bottom:10px}
-    .title{font-weight:600;margin:6px 0}
-    .price{font-weight:700;color:var(--accent)}
-    .actions{margin-top:auto;display:flex;gap:8px}
-    button{cursor:pointer;border:0;padding:8px 12px;border-radius:8px}
-    .btn-primary{background:var(--accent);color:#fff}
-    .btn-ghost{background:transparent;border:1px solid #e6e9ef}
-
-    /* Carrinho */
-    .cart{background:linear-gradient(#fff,#fbfdff);border-radius:12px;padding:14px;box-shadow:0 8px 20px rgba(15,23,42,0.06);position:sticky;top:20px;height:fit-content}
-    .cart h3{margin:0 0 8px}
-    .cart-list{display:flex;flex-direction:column;gap:10px;max-height:420px;overflow:auto;padding-right:6px}
-    .cart-item{display:flex;gap:10px;align-items:center}
-    .ci-thumb{width:56px;height:56px;border-radius:8px;background:#eef2ff;display:flex;align-items:center;justify-content:center}
-    .ci-info{flex:1}
-    .qty{display:inline-flex;align-items:center;gap:6px}
-    .small{font-size:13px;color:var(--muted)}
-    .total{display:flex;justify-content:space-between;padding-top:8px;border-top:1px dashed #e6e9ef;margin-top:10px;font-weight:700}
-
-    footer{padding:18px;text-align:center;color:var(--muted)}
-  </style>
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <div class="logo">Lo</div>
-      <div>
-        <div style="font-weight:700">Loja Exemplo</div>
-        <div class="small">HTML + JavaScript (sem backend)</div>
-      </div>
-    </div>
-    <div>
-      <span class="small">Carrinho: <strong id="cartCount">0</strong> itens</span>
-    </div>
-  </header>
+  <h1>Resumo do Pedido</h1>
+  <div id="cart"></div>
+  <h2>Dados de Pagamento</h2>
 
-  <main>
-    <section>
-      <h2>Produtos</h2>
-      <div id="products" class="grid" aria-live="polite"></div>
-    </section>
+  <form onsubmit="finalizar(event)">
+    <label>Nome no cartão:<br>
+      <input required>
+    </label><br><br>
 
-    <aside class="cart" aria-label="Carrinho">
-      <h3>Seu Carrinho</h3>
-      <div id="cartList" class="cart-list"></div>
-      <div class="total">
-        <div>Total</div>
-        <div id="cartTotal">R$ 0,00</div>
-      </div>
-      <div style="margin-top:12px;display:flex;gap:8px">
-        <button class="btn-ghost" id="clearBtn">Limpar</button>
-        <button class="btn-primary" id="checkoutBtn">Finalizar Compra</button>
-      </div>
-    </aside>
-  </main>
+    <label>Número do cartão:<br>
+      <input required maxlength="16">
+    </label><br><br>
 
-  <footer>
-    Teste local: salve este arquivo como <code>index.html</code> e abra no navegador.
-  </footer>
+    <label>Validade:<br>
+      <input required placeholder="MM/AA">
+    </label><br><br>
+
+    <label>CVV:<br>
+      <input required maxlength="3">
+    </label><br><br>
+
+    <button type="submit">Finalizar Compra</button>
+  </form>
 
   <script>
-    // Produtos de exemplo (pode substituir por chamada fetch para um backend)
-    const products = [
-      { id: 'p1', title: 'Camiseta Básica', price: 59.9, desc: 'Algodão 100% — confortável e leve.' },
-      { id: 'p2', title: 'Caneca Estilosa', price: 29.5, desc: 'Cerâmica 350ml — lavável em lava-louças.' },
-      { id: 'p3', title: 'Mochila Compacta', price: 149.0, desc: 'Resistente à água com vários bolsos.' },
-      { id: 'p4', title: 'Fone Bluetooth', price: 199.9, desc: 'Até 12h de bateria.' },
-      { id: 'p5', title: 'Caderno A5', price: 24.9, desc: '80 páginas - capa dura.' },
-      { id: 'p6', title: 'Relógio Minimal', price: 249.0, desc: 'Pulseira em couro sintético.' }
-    ];
+    const products = {
+      p1: { title: 'Camiseta Básica', price: 59.9 },
+      p2: { title: 'Caneca Estilosa', price: 29.5 },
+      p3: { title: 'Mochila Compacta', price: 149.0 }
+    };
 
-    // Helpers de moeda
     const fmt = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-    // Estado do carrinho (persistido em localStorage)
-    const STORAGE_KEY = 'ex_loja_cart_v1';
-    let cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); // {id: qty}
-
-    // Renderizadores
-    function renderProducts(){
-      const el = document.getElementById('products');
-      el.innerHTML = '';
-      products.forEach(p => {
-        const div = document.createElement('div'); div.className = 'card';
-        div.innerHTML = `
-          <div class="thumb">${p.title}</div>
-          <div class="title">${p.title}</div>
-          <div class="small">${p.desc}</div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-            <div class="price">${fmt(p.price)}</div>
-            <div class="actions">
-              <button class="btn-ghost" onclick="addToCart('${p.id}')">Adicionar</button>
-            </div>
-          </div>
-        `;
-        el.appendChild(div);
-      });
-    }
-
-    function renderCart(){
-      const list = document.getElementById('cartList');
-      list.innerHTML = '';
-      const items = Object.keys(cart);
+    function loadCart(){
+      const cart = JSON.parse(localStorage.getItem('cart') || '{}');
+      const container = document.getElementById('cart');
       let total = 0;
-      if(items.length === 0){
-        list.innerHTML = '<div class="small">Seu carrinho está vazio.</div>';
-      } else {
-        items.forEach(id => {
-          const qty = cart[id];
-          const prod = products.find(p => p.id === id);
-          const subtotal = prod.price * qty;
-          total += subtotal;
 
-          const item = document.createElement('div'); item.className = 'cart-item';
-          item.innerHTML = `
-            <div class="ci-thumb">${prod.title.split(' ')[0]}</div>
-            <div class="ci-info">
-              <div style="font-weight:600">${prod.title}</div>
-              <div class="small">${fmt(prod.price)} x ${qty} = ${fmt(subtotal)}</div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-              <div class="qty">
-                <button class="btn-ghost" onclick="changeQty('${id}', -1)">-</button>
-                <div style="min-width:22px;text-align:center">${qty}</div>
-                <button class="btn-ghost" onclick="changeQty('${id}', 1)">+</button>
-              </div>
-              <button class="btn-ghost" onclick="removeItem('${id}')">Remover</button>
-            </div>
-          `;
-          list.appendChild(item);
-        });
+      if(Object.keys(cart).length === 0){
+        container.innerHTML = '<p>Carrinho vazio.</p>';
+        return;
       }
 
-      document.getElementById('cartTotal').textContent = fmt(total);
-      document.getElementById('cartCount').textContent = items.reduce((s,k)=> s + cart[k], 0);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-    }
-
-    // Ações do carrinho
-    function addToCart(id){
-      cart[id] = (cart[id] || 0) + 1;
-      renderCart();
-    }
-    function changeQty(id, delta){
-      if(!cart[id]) return;
-      cart[id] += delta;
-      if(cart[id] <= 0) delete cart[id];
-      renderCart();
-    }
-    function removeItem(id){
-      delete cart[id];
-      renderCart();
-    }
-    function clearCart(){ cart = {}; renderCart(); }
-    function checkout(){
-      const items = Object.keys(cart);
-      if(items.length === 0){ alert('Seu carrinho está vazio. Adicione itens antes de finalizar.'); return; }
-      // Simulação de checkout: aqui você integraria com um gateway (Stripe, PagSeguro, etc.)
-      const resumo = items.map(id => {
-        const p = products.find(x => x.id === id);
-        return `${p.title} x${cart[id]}`;
-      }).join('\n');
-      if(confirm('Confirmar compra?\n\n' + resumo)){
-        alert('Compra simulada! Obrigado.');
-        clearCart();
+      for(const id in cart){
+        const qtd = cart[id];
+        const prod = products[id];
+        const sub = prod.price * qtd;
+        total += sub;
+        const div = document.createElement('div');
+        div.innerHTML = `${prod.title} x ${qtd} — <strong>${fmt(sub)}</strong>`;
+        container.appendChild(div);
       }
+
+      const totalEl = document.createElement('h3');
+      totalEl.textContent = 'Total: ' + fmt(total);
+      container.appendChild(totalEl);
     }
 
-    // Ligações de botões
-    document.getElementById('clearBtn').addEventListener('click', clearCart);
-    document.getElementById('checkoutBtn').addEventListener('click', checkout);
+    function finalizar(e){
+      e.preventDefault();
+      alert('Pagamento realizado com sucesso! (simulação)');
+      localStorage.removeItem('cart');
+      window.location.href = 'compras.html';
+    }
 
-    // Inicializa
-    renderProducts();
-    renderCart();
-
-    // Export (útil para testes rápidos no console)
-    window._shop = { addToCart, changeQty, removeItem, clearCart, checkout };
+    loadCart();
   </script>
 </body>
 </html>
-
-      </div>
-    </div>
-  </section>
-</main>
 
 <footer>
   <p>&copy; 2025 Meu Site. Todos os direitos reservados.</p>
