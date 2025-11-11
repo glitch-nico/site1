@@ -22,16 +22,47 @@
 <main>
   <section class="container">
     <h2>Nossos Produtos</h2>
-    <div class="line">
-      <div class="imagem-box">
-        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Floresta bonita">
-      </div>
-      <div class="texto-box">
-        <p>Esta é a descrição da Página 3. A imagem mostra uma floresta exuberante, trazendo sensação de natureza e tranquilidade.</p>
-      </div>
-    </div>
-  </section>
-</main>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Área de Compras</title>
+</head>
+<body>
+  <h1>Produtos</h1>
+  <div id="products"></div>
+  <a href="pagamento.html">Ir para pagamento</a>
+
+  <script>
+    const products = [
+      { id: 'p1', title: 'Camiseta Básica', price: 59.9 },
+      { id: 'p2', title: 'Caneca Estilosa', price: 29.5 },
+      { id: 'p3', title: 'Mochila Compacta', price: 149.0 }
+    ];
+
+    const fmt = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    function addToCart(id){
+      const cart = JSON.parse(localStorage.getItem('cart') || '{}');
+      cart[id] = (cart[id] || 0) + 1;
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert('Item adicionado!');
+    }
+
+    function render(){
+      const container = document.getElementById('products');
+      products.forEach(p => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <strong>${p.title}</strong> — ${fmt(p.price)}
+          <button onclick="addToCart('${p.id}')">Adicionar</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+    render();
+  </script>
 
 <footer>
   <p>&copy; 2025 Meu Site. Todos os direitos reservados.</p>
@@ -39,4 +70,5 @@
 
 </body>
 </html>
+
 
