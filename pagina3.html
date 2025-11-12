@@ -49,18 +49,6 @@
       localStorage.setItem('cart', JSON.stringify(cart));
       alert('Item adicionado!');
     }
-
-    function render(){
-      const container = document.getElementById('products');
-      products.forEach(p => {
-        const div = document.createElement('div');
-        div.innerHTML = `
-          <strong>${p.title}</strong> — ${fmt(p.price)}
-          <button onclick="addToCart('${p.id}')">Adicionar</button>
-        `;
-        container.appendChild(div);
-      });
-    }
     render();
   </script>
 
@@ -70,6 +58,7 @@
 
 </body>
 </html>
+
 
 
 
