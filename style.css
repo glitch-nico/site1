@@ -91,7 +91,7 @@ body {
   top: 0; left: 0;
   width: 100%;
   height: 90%;
-  background-image: url('https://blog.coleco.com.br/wp-content/uploads/2022/12/destaque_coleco_Pokemon-games.jpg');
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2XciyqKhiGfozXi3jTGcqU-V76yv4vGGGRQ&s.jpg');
   background-size: cover;
   background-position: center;
   z-index: 1;
@@ -157,6 +157,7 @@ nav a.ativo:hover {
   object-fit: cover;
   pointer-events: none; /* Impede clique no vídeo */
 }
+
 
 
 
