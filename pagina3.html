@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página 3</title>
+  <title>Página 3 - Produtos</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,42 +22,52 @@
 <main>
   <section class="container">
     <h2>Nossos Produtos</h2>
-<!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Área de Compras</title>
-</head>
-<body>
-  <h1>Produtos</h1>
-  <div id="products"></div>
-  <a href="pagamento.html">Ir para pagamento</a>
-    <script>
-    const products = [
-      { id: 'p1', title: 'crochê do Eevee + pokebola', price: 50.0 },
-      { id: 'p2', title: 'crochê do Pochita', price: 30.0 },
-      { id: 'p3', title: 'crochê do Aang', price: 130.0 }
-    ];
 
-    const fmt = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    <div id="products"></div>
 
-    function addToCart(id){
-      const cart = JSON.parse(localStorage.getItem('cart') || '{}');
-      cart[id] = (cart[id] || 0) + 1;
-      localStorage.setItem('cart', JSON.stringify(cart));
-      alert('Item adicionado!');
-    }
-    render();
-  </script>
-
+    <a href="pagamento.html">Ir para pagamento</a>
+  </section>
+</main>
 
 <footer>
   <p>&copy; 2025 Meu Site. Todos os direitos reservados.</p>
 </footer>
 
+<script>
+  const products = [
+    { id: 'p1', title: 'crochê do Eevee + pokebola', price: 50.0 },
+    { id: 'p2', title: 'crochê do Pochita', price: 30.0 },
+    { id: 'p3', title: 'crochê do Aang', price: 130.0 }
+  ];
+
+  const fmt = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+  function addToCart(id){
+    const cart = JSON.parse(localStorage.getItem('cart') || '{}');
+    cart[id] = (cart[id] || 0) + 1;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Item adicionado!');
+  }
+
+  function render() {
+    const container = document.getElementById("products");
+
+    container.innerHTML = products.map(p => `
+      <div class="produto">
+        <h3>${p.title}</h3>
+        <p>${fmt(p.price)}</p>
+        <button onclick="addToCart('${p.id}')">Adicionar ao carrinho</button>
+      </div>
+    `).join('');
+  }
+
+  render();
+</script>
+
 </body>
 </html>
+
+
 
 
 
